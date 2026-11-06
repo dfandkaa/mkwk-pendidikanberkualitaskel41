@@ -10,16 +10,12 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Canvas Confetti CDN -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .gradient-bg { background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #2563EB 100%); }
-        .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
-    </style>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
 
-    <!-- Header / Navbar -->
+    <!-- Navbar Minimalis -->
     <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md fixed top-0 w-full z-50">
         <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
             <div class="flex items-center gap-2">
@@ -31,7 +27,7 @@
             </div>
             <span class="bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-xs font-semibold px-3 py-1 rounded-full flex items-center gap-1.5">
                 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                Pemetaan Minat Bakat Lengkap
+                Edisi Persiapan SMA &amp; Kuliah
             </span>
         </div>
     </header>
@@ -40,14 +36,16 @@
 
         <!-- STEP 1: ONBOARDING CARD -->
         <div id="step-onboarding" class="glass-card text-slate-800 rounded-3xl p-6 md:p-10 shadow-2xl border border-white/20 relative overflow-hidden transition-all">
+            <div class="absolute -top-12 -right-12 w-40 h-40 bg-indigo-500/10 rounded-full blur-2xl pointer-events-none"></div>
+            
             <div class="inline-flex items-center gap-2 bg-indigo-50 text-indigo-700 text-xs font-bold px-3 py-1.5 rounded-full mb-4">
-                <span>⚡</span> Eksplorasi Potensi Masa Depan
+                <span>⚡</span> Petualangan Mengenali Diri
             </div>
             <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight mb-3">
-                Temukan Minat, Bakat &amp; Karir Impianmu! 🌟
+                Temukan Kekuatan Tersembunyi Dirimu! 🌟
             </h2>
             <p class="text-slate-600 text-sm md:text-base leading-relaxed mb-6">
-                Apakah kamu berbakat di bidang **Kedokteran, Hukum, Seni, Bisnis, Teknik, Penerbangan, Pertanian, atau Keuangan**? Jawab skenario interaktif ini untuk memetakan jalur SMA/SMK dan kuliahmu!
+                Bingung nanti pas SMA mau masuk **IPA, IPS, Bahasa, atau SMK**? Dan pas kuliah mau ambil jurusan apa? Yuk, jawab skenario seru di bawah ini buat petakan bakatmu!
             </p>
 
             <form id="form-user" onsubmit="startQuiz(event)" class="space-y-4 max-w-md">
@@ -72,6 +70,7 @@
 
         <!-- STEP 2: QUIZ INTERAKTIF -->
         <div id="step-quiz" class="hidden space-y-6">
+            <!-- Progress Bar -->
             <div class="bg-slate-800/80 p-4 rounded-2xl border border-slate-700/50 flex flex-col gap-2">
                 <div class="flex justify-between items-center text-xs font-semibold text-slate-300">
                     <span id="quiz-progress-text">Progres Skenario: 1 / 12</span>
@@ -82,25 +81,33 @@
                 </div>
             </div>
 
+            <!-- Question Card -->
             <div class="glass-card text-slate-800 rounded-3xl p-6 md:p-8 shadow-2xl border border-white/20">
                 <div class="flex items-center gap-2 text-xs font-bold text-indigo-600 mb-2">
                     <span class="px-2.5 py-1 bg-indigo-50 rounded-lg" id="q-category-tag">Skenario #1</span>
                 </div>
-                <h3 id="q-title" class="text-lg md:text-xl font-bold text-slate-900 mb-6"></h3>
-                <div id="options-container" class="space-y-3"></div>
+                <h3 id="q-title" class="text-lg md:text-xl font-bold text-slate-900 mb-6">
+                    <!-- Dynamic Question Text -->
+                </h3>
+
+                <div id="options-container" class="space-y-3">
+                    <!-- Dynamic Option Buttons -->
+                </div>
             </div>
         </div>
 
         <!-- STEP 3: RESULTS DASHBOARD -->
         <div id="step-result" class="hidden space-y-8">
+            
+            <!-- Hero Result Card -->
             <div class="glass-card text-slate-800 rounded-3xl p-6 md:p-8 shadow-2xl border border-white/20 text-center relative overflow-hidden">
                 <div class="inline-block bg-indigo-100 text-indigo-700 font-bold text-xs px-3 py-1 rounded-full mb-2">
-                    Hasil Analisis Pemetaan Minat &amp; Bakat
+                    Hasil Analisis Potensi Diri
                 </div>
                 <h2 class="text-2xl md:text-3xl font-black text-slate-900">
                     Halo, <span id="res-user-name" class="text-indigo-600">--</span>! 👋
                 </h2>
-                <p class="text-slate-600 text-sm mt-1">Berdasarkan jawabanmu, ini tipe kepribadian &amp; potensi dominanmu:</p>
+                <p class="text-slate-600 text-sm mt-1">Berdasarkan jawabanmu, ini adalah tipe karakter &amp; potensi dominanmu:</p>
 
                 <div class="my-6 p-6 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl border border-indigo-100">
                     <span class="text-4xl mb-2 block" id="res-archetype-icon">🚀</span>
@@ -108,35 +115,44 @@
                     <p id="res-archetype-desc" class="text-slate-600 text-sm mt-2 max-w-xl mx-auto">--</p>
                 </div>
 
+                <!-- Radar Chart -->
                 <div class="max-w-md mx-auto aspect-square relative my-4">
                     <canvas id="riasecChart"></canvas>
                 </div>
             </div>
 
-            <!-- Rekomendasi Luas -->
+            <!-- Rekomendasi Pendidikan (SMA/SMK & Kuliah) -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Rekomendasi SMA / SMK -->
                 <div class="bg-slate-800/90 rounded-3xl p-6 border border-slate-700/60 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center gap-2 mb-3">
                             <span class="text-2xl">🏫</span>
                             <h4 class="font-extrabold text-base text-white">Rekomendasi Jalur SMA / SMK</h4>
                         </div>
-                        <div id="res-school-recommendation" class="space-y-3 text-sm text-slate-300"></div>
+                        <div id="res-school-recommendation" class="space-y-3 text-sm text-slate-300">
+                            <!-- Injected Dynamically -->
+                        </div>
                     </div>
                 </div>
 
+                <!-- Rekomendasi Kuliah & Karir Masa Depan -->
                 <div class="bg-slate-800/90 rounded-3xl p-6 border border-slate-700/60 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center gap-2 mb-3">
                             <span class="text-2xl">🎓</span>
-                            <h4 class="font-extrabold text-base text-white">Rekomendasi Kuliah &amp; Profesi Karir</h4>
+                            <h4 class="font-extrabold text-base text-white">Rekomendasi Kuliah &amp; Karir</h4>
                         </div>
-                        <div id="res-college-recommendation" class="space-y-3 text-sm text-slate-300"></div>
+                        <div id="res-college-recommendation" class="space-y-3 text-sm text-slate-300">
+                            <!-- Injected Dynamically -->
+                        </div>
                     </div>
                 </div>
+
             </div>
 
-            <!-- Roadmap -->
+            <!-- Interactive Roadmap Timeline (SMP -> SMA -> Kuliah) -->
             <div class="bg-slate-800/90 rounded-3xl p-6 md:p-8 border border-slate-700/60 space-y-6">
                 <div class="flex items-center gap-3">
                     <span class="p-2 bg-indigo-500/20 text-indigo-400 rounded-xl font-bold">🗺️</span>
@@ -147,47 +163,50 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- Step SMP -->
                     <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/40 space-y-2">
                         <span class="bg-indigo-500/20 text-indigo-300 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">Fase 1: Sekarang (SMP)</span>
-                        <h5 class="font-bold text-sm text-white">Eksplorasi Minat &amp; Nilai Rapor</h5>
+                        <h5 class="font-bold text-sm text-white">Eksplorasi &amp; Tentukan Jurusan SMA</h5>
                         <ul class="text-xs text-slate-300 space-y-1.5 list-disc list-inside">
-                            <li>Jaga grafik nilai mata pelajaran utama tetap tinggi.</li>
-                            <li>Ikuti kegiatan ekstra kurikuler yang relevan.</li>
-                            <li>Cari tahu profil jurusan SMA/SMK tujuanmu.</li>
+                            <li>Fokus nilai rapor mata pelajaran inti.</li>
+                            <li>Ikuti ekskul yang sesuai minatmu.</li>
+                            <li>Kunjungi pameran pendidikan / tanya alumni.</li>
                         </ul>
                     </div>
 
+                    <!-- Step SMA -->
                     <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/40 space-y-2">
                         <span class="bg-purple-500/20 text-purple-300 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">Fase 2: SMA / SMK</span>
-                        <h5 class="font-bold text-sm text-white">Prestasi &amp; Portofolio Diri</h5>
+                        <h5 class="font-bold text-sm text-white">Bangun Portofolio &amp; Prestasi</h5>
                         <ul class="text-xs text-slate-300 space-y-1.5 list-disc list-inside">
-                            <li>Pertahankan konsistensi nilai untuk jalur SNBP/SNBT.</li>
-                            <li>Aktif berorganisasi (OSIS, Pramuka, KIR, dll).</li>
-                            <li>Asah kemampuan Bahasa Inggris &amp; Public Speaking.</li>
+                            <li>Pertahankan grafik nilai stabil naik (SNBP/SNBT).</li>
+                            <li>Ikut lomba / organisasi sekolah (OSIS/Ekskul).</li>
+                            <li>Pelajari skill digital tambahan (Coding, Bahasa Inggris).</li>
                         </ul>
                     </div>
 
+                    <!-- Step Kuliah -->
                     <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/40 space-y-2">
                         <span class="bg-emerald-500/20 text-emerald-300 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">Fase 3: Perguruan Tinggi</span>
-                        <h5 class="font-bold text-sm text-white">Keahlian Profesional &amp; Karir</h5>
+                        <h5 class="font-bold text-sm text-white">Spesialisasi &amp; Karir</h5>
                         <ul class="text-xs text-slate-300 space-y-1.5 list-disc list-inside">
-                            <li>Masuk universitas / politeknik impian.</li>
-                            <li>Ikuti program magang kerja (*internship*).</li>
-                            <li>Siap menjadi ahli di bidang profesional pilihanmu.</li>
+                            <li>Masuk PTN/PTS impian sesuai passion.</li>
+                            <li>Ikut magang (*internship*) &amp; proyek riil.</li>
+                            <li>Siap menjadi profesional / *entrepreneur*.</li>
                         </ul>
                     </div>
                 </div>
             </div>
 
-            <!-- Booster Motivasi -->
+            <!-- Fitur Bonus: Study Hack & Motivation Generator -->
             <div class="glass-card text-slate-800 rounded-3xl p-6 border border-white/20 flex flex-col md:flex-row items-center justify-between gap-4">
                 <div class="space-y-1 text-center md:text-left">
-                    <span class="bg-amber-100 text-amber-800 text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase">Booster Motivasi Belajar</span>
-                    <h4 class="font-bold text-base text-slate-900">Tips Efektif Meraih Cita-Cita</h4>
-                    <p id="study-hack-text" class="text-xs text-slate-600 italic">"Klik tombol di samping untuk mendapatkan rahasia sukses belajar!"</p>
+                    <span class="bg-amber-100 text-amber-800 text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase">Booster Motivasi</span>
+                    <h4 class="font-bold text-base text-slate-900">Butuh Jurus Belajar Efektif Hari Ini?</h4>
+                    <p id="study-hack-text" class="text-xs text-slate-600 italic">"Klik tombol di samping untuk mendapatkan teknik belajar rahasia!"</p>
                 </div>
                 <button onclick="generateStudyHack()" class="bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-3 px-5 rounded-xl transition flex-shrink-0">
-                    🎲 Acak Tips Belajar
+                    🎲 Acak Study Hack
                 </button>
             </div>
 
@@ -200,323 +219,18 @@
                     🔄 Ulangi Tes
                 </button>
             </div>
+
         </div>
 
     </main>
 
+    <!-- Footer -->
     <footer class="border-t border-slate-800 py-6 text-center text-slate-500 text-xs">
         <p>&copy; 2026 Tim Proyek MKWK USU — Kelompok Pendidikan Berkualitas</p>
-        <p class="mt-1 text-slate-600">Universitas Sumatera Utara (USU)</p>
+        <p class="mt-1 text-slate-600">Dibuat oleh Mahasiswa Ilmu Komputer Universitas Sumatera Utara</p>
     </footer>
 
-    <!-- LOGIKA JAVASCRIPT LENGKAP -->
-    <script>
-        // ⚠️ PASTE URL GOOGLE APPS SCRIPT-MU DI DALAM TANDA PETIK TUNGGAL BILA SUDAH DIDEPLOY:
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzwCH9LGNrupP_cswdfuN0dX-Zcmp-c9tknrL5W-D-30gzXczQ4AGg77iHhhG4xo6cHxQ/exec'; 
-
-        let userData = { name: '', grade: '' };
-        let currentQuestionIndex = 0;
-        let scores = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
-
-        const questions = [
-            {
-                category: 'R', tag: 'Aktivitas Fisik, Mesin, Pertanian & Lapangan',
-                title: 'Di waktu luang atau acara sekolah, aktivitas mana yang paling kamu nikmati?',
-                options: [
-                    { text: 'Memperbaiki barang/alat fisik, merawat tanaman/hewan, atau olahraga outdoor.', score: 3 },
-                    { text: 'Mengamati orang yang sedang bekerja membuat barang atau mempraktikkan keterampilan fisik.', score: 2 },
-                    { text: 'Duduk santai sambil membaca atau mengobrol tanpa kegiatan fisik.', score: 1 }
-                ]
-            },
-            {
-                category: 'I', tag: 'Sains, Penelitian, Medis & Riset',
-                title: 'Bagaimana perasaanmu ketika mempelajari topik IPA, kesehatan manusia, atau eksperimen sains?',
-                options: [
-                    { text: 'Sangat penasaran! Suka mencari tahu penyebab ilmiah dan fakta tersembunyinya.', score: 3 },
-                    { text: 'Cukup tertarik kalau dijelaskan secara menarik oleh guru.', score: 2 },
-                    { text: 'Kurang suka hal-hal yang penuh teori ilmiah dan hafalan rumit.', score: 1 }
-                ]
-            },
-            {
-                category: 'A', tag: 'Seni, Bahasa, Kuliner & Desain',
-                title: 'Bagaimana caramu mengekspresikan diri saat senggang?',
-                options: [
-                    { text: 'Menulis cerita/puisi, menggambar/desain, bermain musik, memasak kreasi baru, atau fotografi.', score: 3 },
-                    { text: 'Menikmati hasil karya seni orang lain (mendengar musik, nonton film, membaca).', score: 2 },
-                    { text: 'Jarang tertarik dengan kegiatan seni atau ekspresi kreatif.', score: 1 }
-                ]
-            },
-            {
-                category: 'S', tag: 'Pendidikan, Kemanusiaan & Pelayanan',
-                title: 'Saat melihat teman atau orang lain di sekitarmu mengalami kesulitan:',
-                options: [
-                    { text: 'Refleks langsung membantu, mendengarkan curhatnya, atau mengajari materi yang belum dipahaminya.', score: 3 },
-                    { text: 'Memberikan saran sekadarnya jika diminta.', score: 2 },
-                    { text: 'Cenderung membiarkan mereka menyelesaikan masalahnya sendiri.', score: 1 }
-                ]
-            },
-            {
-                category: 'E', tag: 'Bisnis, Kepemimpinan & Diplomasi',
-                title: 'Jika kelompokmu harus mengadakan bazar atau proyek kelas:',
-                options: [
-                    { text: 'Semangat jadi ketua panitia, memimpin tim, tawar-menawar, dan cari strategi jualan.', score: 3 },
-                    { text: 'Suka membantu ide-ide jualan dan promosi.', score: 2 },
-                    { text: 'Lebih memilih menjalankan tugas biasa sesuai perintah ketua.', score: 1 }
-                ]
-            },
-            {
-                category: 'C', tag: 'Keuangan, Administrasi & Tata Kelola',
-                title: 'Bagaimana caramu mengelola catatan pelajaran, tugas, dan jadwal kegiatan harian?',
-                options: [
-                    { text: 'Sangat rapi, sistematis, mencatat keuangan/uang saku, dan suka jadwal yang teratur.', score: 3 },
-                    { text: 'Cukup rapi agar tidak lupa tugas sekolah.', score: 2 },
-                    { text: 'Santai saja, fleksibel tanpa perlu dicatat detail.', score: 1 }
-                ]
-            },
-            {
-                category: 'R', tag: 'Konstruksi, Penerbangan & Pelayaran',
-                title: 'Melihat profesi seperti Pilot, Kapten Kapal, Arsitek Bangunan, atau Perwira TNI/Polri:',
-                options: [
-                    { text: 'Sangat tertarik! Bekerja di lapangan, menggunakan keterampilan teknis & kedisiplinan fisik.', score: 3 },
-                    { text: 'Menarik sebagai pengetahuan, tapi ragu kalau harus dijalani.', score: 2 },
-                    { text: 'Kurang suka pekerjaan yang membutuhkan ketahanan fisik ekstra.', score: 1 }
-                ]
-            },
-            {
-                category: 'I', tag: 'Kedokteran & Biologi Murni',
-                title: 'Jika ada pembahasan tentang penyakit, anatomi tubuh, bintang di angkasa, atau reaksi kimia:',
-                options: [
-                    { text: 'Sangat antusias membaca atau menonton dokumenter tentang hal tersebut.', score: 3 },
-                    { text: 'Menyimak hanya saat pelajaran di sekolah saja.', score: 2 },
-                    { text: 'Tidak terlalu tertarik dengan hal-hal teoretis tersebut.', score: 1 }
-                ]
-            },
-            {
-                category: 'A', tag: 'Dunia Kreatif, Fashion & Sastra',
-                title: 'Ketika melihat bangunan dengan arsitektur indah, pakaian fashion unik, atau film yang bagus:',
-                options: [
-                    { text: 'Langsung terinspirasi untuk membuat konsep visual/karya yang serupa atau lebih unik.', score: 3 },
-                    { text: 'Mengagumi keindahannya saja.', score: 2 },
-                    { text: 'Biasa saja, tidak terlalu memperhatikan detail estetika.', score: 1 }
-                ]
-            },
-            {
-                category: 'S', tag: 'Hukum, Psikologi & Konseling',
-                title: 'Saat terjadi perselisihan atau perbedaan pendapat di antara teman-temanmu:',
-                options: [
-                    { text: 'Tampil sebagai penengah yang adil, mendengarkan kedua pihak, dan mencari solusi damai.', score: 3 },
-                    { text: 'Mendukung pihak yang menurutmu benar.', score: 2 },
-                    { text: 'Memilih untuk tidak ikut campur dalam masalah orang lain.', score: 1 }
-                ]
-            },
-            {
-                category: 'E', tag: 'Politik, Komunikasi & Wirausaha',
-                title: 'Bagaimana perasaanmu ketika harus tampil berbicara di depan umum atau membujuk orang lain?',
-                options: [
-                    { text: 'Percaya diri dan tertantang untuk meyakinkan banyak orang dengan pendapatmu.', score: 3 },
-                    { text: 'Bisa melakukannya kalau sudah persiapan matang.', score: 2 },
-                    { text: 'Merasa sangat gugup dan berusaha menghindarinya.', score: 1 }
-                ]
-            },
-            {
-                category: 'C', tag: 'Akuntansi & Manajemen Dokumen',
-                title: 'Bekerja dengan angka-angka keuangan, mengorganisir arsip berkas, atau memeriksa ketelitian data:',
-                options: [
-                    { text: 'Sangat menyenangkan karena butuh ketelitian dan kerapian tinggi.', score: 3 },
-                    { text: 'Biasa saja, bisa dikerjakan kalau memang tugas wajib.', score: 2 },
-                    { text: 'Merasa membosankan dan bikin pusing.', score: 1 }
-                ]
-            }
-        ];
-
-        const archetypes = {
-            'R': {
-                icon: '🛠️', title: 'Tipe Practical & Technical (Realistic)',
-                desc: 'Kamu memiliki keunggulan pada kemampuan praktis, ketahanan fisik, kerja lapangan, mekanik, dan penguasaan peralatan nyata.',
-                sma: '<strong>SMA:</strong> IPA (Fokus Fisika/Geografi)<br><strong>SMK:</strong> Teknik Otomotif, Teknik Bangunan/Sipil, Pelayaran/Kelautan, Penerbangan, Pertanian/Perkebunan, Kehutanan.',
-                college: '<strong>Jurusan Kuliah:</strong> Teknik Sipil, Teknik Mesin, Kedokteran Hewan, Ilmu Kelautan, Agroteknologi, Penerbangan (Penerbang/Aviation), Ilmu Keolahragaan.<br><strong>Pilihan Profesi:</strong> Insinyur Sipil, Pilot/Penerbang, Kapten Kapal, Dokter Hewan, Agronom (Ahli Pertanian), Arsitek Bangunan, Perwira TNI/Polri.'
-            },
-            'I': {
-                icon: '🔬', title: 'Tipe Analytical & Medical (Investigative)',
-                desc: 'Kamu seorang pemikir mendalam yang menyukai analisis sains, pemecahan teka-teki medis, penelitian laboratorium, dan eksperimen ilmiah.',
-                sma: '<strong>SMA:</strong> IPA (Sangat Disarankan)<br><strong>SMK:</strong> Farmasi, Analis Kimia, Keperawatan, Kesehatan Masyarakat.',
-                college: '<strong>Jurusan Kuliah:</strong> Kedokteran Umum, Kedokteran Gigi, Farmasi, Bioteknologi, Ilmu Gizi, Biologi/Kimia/Fisika Murni, Astronomi, Psikologi Eksperimental.<br><strong>Pilihan Profesi:</strong> Dokter Spesialis, Apoteker, Peneliti/Saintis, Dokter Gigi, Ahli Epidemologi, Biolog, Ahli Gizi Klinis, Astronom.'
-            },
-            'A': {
-                icon: '🎨', title: 'Tipe Creative & Language (Artistic)',
-                desc: 'Kamu memiliki daya imajinasi tinggi, peka terhadap keindahan, menyukai bahasa, seni pertunjukan, karya tulis, dan ekspresi budaya.',
-                sma: '<strong>SMA:</strong> Bahasa / IPS / SMA Seni<br><strong>SMK:</strong> Seni Musik, Tata Boga (Culinary Art), DKV, Tata Busana (Fashion), Broadcaster/Perfilman.',
-                college: '<strong>Jurusan Kuliah:</strong> Sastra & Bahasa (Inggris, Jepang, Mandarin, dll), Seni Rupa & Musik, Film & Televisi, Desain Interior, Fashion Design, Tata Boga (Gastronomi), Jurnalistik.<br><strong>Pilihan Profesi:</strong> Chef / Executive Cook, Sastrawan / Penerjemah Bahasa, Sutradara / Videografer, Desainer Interior / Fashion, Jurnalis / Editor, Musisi / Komposer.'
-            },
-            'S': {
-                icon: '🤝', title: 'Tipe Humanist & Educator (Social)',
-                desc: 'Kamu memiliki empati tinggi, senang mengajar, membimbing, membantu sesama, membela keadilan sosial, dan melayani masyarakat.',
-                sma: '<strong>SMA:</strong> IPS / IPA<br><strong>SMK:</strong> Keperawatan, Pekerjaan Sosial, Layanan Kesehatan, Perhotelan.',
-                college: '<strong>Jurusan Kuliah:</strong> Ilmu Hukum, Keperawatan, Kebidanan, Bimbingan Konseling, Pendidikan Guru (PGSD/PGPAUD), Ilmu Hubungan Internasional, Sosiologi.<br><strong>Pilihan Profesi:</strong> Pengacara / Hakim / Advokat, Guru / Dosen, Perawat / Bidan, Diplomat / Duta Besar, Pekerja Sosial / NGO Internasional, Konselor / Terapis.'
-            },
-            'E': {
-                icon: '💼', title: 'Tipe Business & Leader (Enterprising)',
-                desc: 'Kamu berbakat dalam memimpin orang lain, berani mengambil peluang bisnis, mahir berdiplomasi, persuasif, dan menyukai organisasi.',
-                sma: '<strong>SMA:</strong> IPS / IPA<br><strong>SMK:</strong> Pemasaran, Bisnis Retail, Perhotelan & Pariwisata, Manajemen.',
-                college: '<strong>Jurusan Kuliah:</strong> Manajemen Bisnis, Ilmu Politik, Ilmu Pemerintahan, Pariwisata & Perhotelan, Hukum Bisnis, Ilmu Komunikasi / Public Relations.<br><strong>Pilihan Profesi:</strong> Pengusaha / Wirausahawan, Manajer Pemasaran, Politisi / Anggota DPR, Hotel General Manager, Public Relations (PR), Event Organizer Manager.'
-            },
-            'C': {
-                icon: '📊', title: 'Tipe Structured & Financial (Conventional)',
-                desc: 'Kamu sangat teliti, rapi, teratur, menyukai ketepatan data keuangan, manajemen arsip dokumen, dan keteraturan prosedur.',
-                sma: '<strong>SMA:</strong> IPS / IPA<br><strong>SMK:</strong> Akuntansi & Keuangan, Otomatisasi Perkantoran, Manajemen Logistik.',
-                college: '<strong>Jurusan Kuliah:</strong> Akuntansi, Perbankan & Keuangan, Ilmu Perpajakan, Administrasi Publik, Manajemen Logistik, Ilmu Perpustakaan & Kearsipan.<br><strong>Pilihan Profesi:</strong> Akuntan Publik, Konsultan Pajak, Bankir / Manajer Keuangan, Manajer Logistik, Pegawai Negeri Sipil (PNS) Administrasi, Notaris / Staf Legal.'
-            }
-        };
-
-        const studyHacks = [
-            "<strong>Teknik Pomodoro:</strong> Belajar fokus 25 menit, lalu istirahat 5 menit. Ulangi 4 kali untuk menjaga daya ingat!",
-            "<strong>Teknik Feynman:</strong> Coba jelaskan materi pelajaran sulit ke temanmu dengan bahasa sederhana seolah kamu gurunya.",
-            "<strong>Active Recall:</strong> Tutup bukumu, lalu tulis atau ucapkan kembali apa yang kamu ingat dari memori tanpa melihat catatan.",
-            "<strong>Spaced Repetition:</strong> Ulangi membaca materi baru pada Hari ke-1, Hari ke-3, Hari ke-7, dan Hari ke-30 agar terekam selamanya.",
-            "<strong>Aturan 5 Menit:</strong> Jika malas belajar, paksa diri cukup belajar 5 menit saja. Biasanya setelah mulai, kamu akan bersemangat lanjut!"
-        ];
-
-        function startQuiz(e) {
-            e.preventDefault();
-            userData.name = document.getElementById('user-name').value;
-            userData.grade = document.getElementById('user-grade').value;
-
-            document.getElementById('step-onboarding').classList.add('hidden');
-            document.getElementById('step-quiz').classList.remove('hidden');
-
-            renderQuestion();
-        }
-
-        function renderQuestion() {
-            const q = questions[currentQuestionIndex];
-            const total = questions.length;
-            const progressPct = Math.round(((currentQuestionIndex) / total) * 100);
-
-            document.getElementById('quiz-progress-text').innerText = `Skenario ${currentQuestionIndex + 1} dari ${total}`;
-            document.getElementById('quiz-percentage').innerText = `${progressPct}%`;
-            document.getElementById('quiz-progress-bar').style.width = `${progressPct}%`;
-
-            document.getElementById('q-category-tag').innerText = `Skenario #${currentQuestionIndex + 1} — ${q.tag}`;
-            document.getElementById('q-title').innerText = q.title;
-
-            const container = document.getElementById('options-container');
-            container.innerHTML = '';
-
-            q.options.forEach(opt => {
-                const btn = document.createElement('button');
-                btn.className = "w-full text-left p-4 rounded-2xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/50 transition duration-150 font-medium text-slate-700 text-sm flex items-center justify-between group";
-                btn.innerHTML = `
-                    <span>${opt.text}</span>
-                    <span class="w-6 h-6 rounded-full border border-slate-300 group-hover:border-indigo-600 group-hover:bg-indigo-600 group-hover:text-white flex items-center justify-center text-xs transition">➔</span>
-                `;
-                btn.onclick = () => selectOption(q.category, opt.score);
-                container.appendChild(btn);
-            });
-        }
-
-        function selectOption(category, score) {
-            scores[category] += score;
-            currentQuestionIndex++;
-
-            if (currentQuestionIndex < questions.length) {
-                renderQuestion();
-            } else {
-                finishQuiz();
-            }
-        }
-
-        function sendDataToGoogleSheet(payload) {
-            if (!SCRIPT_URL || SCRIPT_URL.includes('PASTE_URL')) {
-                console.warn('URL Google Apps Script belum diisi di kode HTML.');
-                return;
-            }
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            })
-            .then(() => console.log('Data sukses terkirim ke Google Sheets!'))
-            .catch(err => console.error('Gagal mengirim data:', err));
-        }
-
-        function finishQuiz() {
-            document.getElementById('step-quiz').classList.add('hidden');
-            document.getElementById('step-result').classList.remove('hidden');
-
-            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-
-            // 1. Cari Kategori Utama
-            let maxCat = 'R';
-            let maxVal = -1;
-            for (let cat in scores) {
-                if (scores[cat] > maxVal) {
-                    maxVal = scores[cat];
-                    maxCat = cat;
-                }
-            }
-
-            // 2. Hitung 3 Kode Holland Teratas (Contoh: "I - A - S")
-            let sortedCats = Object.keys(scores).sort((a, b) => scores[b] - scores[a]);
-            let top3Code = sortedCats.slice(0, 3).join(' - ');
-
-            const info = archetypes[maxCat];
-            document.getElementById('res-user-name').innerText = `${userData.name} (${userData.grade})`;
-            document.getElementById('res-archetype-icon').innerText = info.icon;
-            document.getElementById('res-archetype-title').innerText = info.title;
-            document.getElementById('res-archetype-desc').innerText = info.desc;
-            document.getElementById('res-school-recommendation').innerHTML = info.sma;
-            document.getElementById('res-college-recommendation').innerHTML = info.college;
-
-            // 3. Bersihkan tag HTML agar teks di Spreadsheet super rapi & bersih
-            let cleanSma = info.sma.replace(/<br\s*\/?>/gi, ' | ').replace(/<[^>]*>/g, '');
-            let cleanCollege = info.college.replace(/<br\s*\/?>/gi, ' | ').replace(/<[^>]*>/g, '');
-
-            // 4. Kirim Payload Lengkap ke Google Sheet
-            sendDataToGoogleSheet({
-                name: userData.name,
-                grade: userData.grade,
-                scores: scores,
-                top3Code: top3Code,
-                dominantType: info.title,
-                schoolRec: cleanSma,
-                collegeRec: cleanCollege
-            });
-
-            // 5. Render Radar Chart
-            const ctx = document.getElementById('riasecChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'radar',
-                data: {
-                    labels: ['Practical (R)', 'Analytical (I)', 'Creative (A)', 'Social (S)', 'Leadership (E)', 'Structured (C)'],
-                    datasets: [{
-                        label: 'Skor Minat Bakat',
-                        data: [scores.R, scores.I, scores.A, scores.S, scores.E, scores.C],
-                        backgroundColor: 'rgba(99, 102, 241, 0.25)',
-                        borderColor: 'rgba(99, 102, 241, 1)',
-                        borderWidth: 2.5,
-                        pointBackgroundColor: 'rgba(99, 102, 241, 1)'
-                    }]
-                },
-                options: {
-                    scales: {
-                        r: {
-                            angleLines: { color: '#cbd5e1' },
-                            grid: { color: '#e2e8f0' },
-                            suggestedMin: 0,
-                            suggestedMax: 6,
-                            ticks: { display: false }
-                        }
-                    },
-                    plugins: { legend: { display: false } }
-                }
-            });
-        }
-
-        function generateStudyHack() {
-            const randomHack = studyHacks[Math.floor(Math.random() * studyHacks.length)];
-            document.getElementById('study-hack-text').innerHTML = randomHack;
-        }
-    </script>
+    <!-- LOGIKA JAVASCRIPT -->
+    <script src="script.js"></script>
 </body>
 </html>
